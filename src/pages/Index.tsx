@@ -40,7 +40,7 @@ const Index = () => {
   };
 
   const handleTaskComplete = (completedTask: Task) => {
-    const updatedTask = {
+    const updatedTask: Task = {
       ...completedTask,
       status: 'completed',
       timeRemaining: 0,

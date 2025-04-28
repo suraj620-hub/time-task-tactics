@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Task } from '@/types/task';
 import { Clock, Play, Pause, RotateCcw, CheckCircle } from 'lucide-react';
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 interface TaskTimerProps {
   task: Task;
@@ -30,7 +30,7 @@ const TaskTimer: React.FC<TaskTimerProps> = ({ task, onTaskUpdate, onTaskComplet
             const completedTask = {
               ...task,
               timeRemaining: 0,
-              status: 'completed',
+              status: 'completed' as const,
               completedAt: new Date().toISOString()
             };
             
@@ -166,7 +166,7 @@ const TaskTimer: React.FC<TaskTimerProps> = ({ task, onTaskUpdate, onTaskComplet
             const completedTask = {
               ...task,
               timeRemaining: 0,
-              status: 'completed',
+              status: 'completed' as const,
               completedAt: new Date().toISOString()
             };
             onTaskComplete(completedTask);
