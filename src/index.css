@@ -34,6 +34,12 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.75rem;
+    
+    /* Timer colors */
+    --timer-blue: 210 79% 46%;
+    --timer-green: 142 72% 50%;
+    --timer-yellow: 42 96% 50%;
+    --timer-red: 0 72% 51%;
   }
 
   .dark {
@@ -149,5 +155,20 @@
   
   .hover\:scale-102:hover {
     transform: scale(1.02);
+  }
+  
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  }
+  
+  .study-bg {
+    background-image: url('https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
   }
 }

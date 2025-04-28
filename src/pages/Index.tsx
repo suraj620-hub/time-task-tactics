@@ -37,6 +37,11 @@ const Index = () => {
         task.id === updatedTask.id ? updatedTask : task
       )
     );
+    
+    // If the active task was updated, also update the active task reference
+    if (activeTask && activeTask.id === updatedTask.id) {
+      setActiveTask(updatedTask);
+    }
   };
 
   const handleTaskComplete = (completedTask: Task) => {
@@ -57,25 +62,23 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 bg-fixed">
-      {/* Background Image Overlay */}
-      <div className="absolute inset-0 opacity-10 bg-cover bg-center mix-blend-overlay pointer-events-none" 
-           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')" }}>
-      </div>
+    <div className="min-h-screen study-bg bg-fixed">
+      {/* Semi-transparent overlay to improve text readability */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/70 to-indigo-900/70 mix-blend-multiply pointer-events-none"></div>
       
       <div className="container mx-auto px-4 py-10 relative z-10">
         <div className="max-w-5xl mx-auto">
           <header className="text-center mb-10">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl mb-2 animate-fade-in">
+            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl mb-3 animate-fade-in drop-shadow-lg">
               Time Task Tactics
             </h1>
-            <p className="text-lg text-gray-600 max-w-md mx-auto">
+            <p className="text-lg text-blue-100 max-w-md mx-auto font-medium">
               Master your study time with focused task management and time tracking
             </p>
           </header>
 
           <div className="grid md:grid-cols-2 gap-8 mb-8">
-            <div className="animate-fade-in" style={{ animationDelay: "0.2s" }}>
+            <div className="animate-fade-in glass-effect rounded-xl p-6" style={{ animationDelay: "0.2s" }}>
               <Tabs defaultValue="create" className="w-full">
                 <TabsList className="grid grid-cols-2 mb-4 shadow-md">
                   <TabsTrigger value="create" className="flex items-center gap-1 transition-all duration-300">
@@ -97,8 +100,8 @@ const Index = () => {
             </div>
             
             <div className="flex flex-col animate-fade-in" style={{ animationDelay: "0.4s" }}>
-              <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <Clock className="h-5 w-5 text-timer-blue" />
+              <h2 className="text-xl font-semibold mb-4 flex items-center gap-2 text-white drop-shadow-md">
+                <Clock className="h-5 w-5 text-blue-300" />
                 Active Timer
               </h2>
               
@@ -109,27 +112,27 @@ const Index = () => {
                   onTaskComplete={handleTaskComplete}
                 />
               ) : (
-                <div className="task-card flex flex-col items-center justify-center py-12 text-center bg-white shadow-lg rounded-lg border border-gray-100 hover:shadow-xl transition-all duration-300 p-5">
-                  <Clock className="h-16 w-16 text-gray-300 mb-3 animate-pulse-light" />
-                  <h3 className="text-xl font-medium text-gray-700 mb-1">No Active Task</h3>
-                  <p className="text-gray-500 mb-4">Create a new task or select an existing one to start the timer</p>
+                <div className="task-card flex flex-col items-center justify-center py-12 text-center glass-effect hover:shadow-xl transition-all duration-300 p-5 rounded-xl">
+                  <Clock className="h-16 w-16 text-blue-300 mb-3 animate-pulse-light" />
+                  <h3 className="text-xl font-medium text-gray-100 mb-1">No Active Task</h3>
+                  <p className="text-blue-200 mb-4">Create a new task or select an existing one to start the timer</p>
                 </div>
               )}
               
               {tasks.filter(task => task.status === 'pending').length > 0 && !activeTask && (
-                <div className="mt-4">
-                  <h3 className="text-md font-medium mb-3">Your Tasks</h3>
+                <div className="mt-4 glass-effect p-4 rounded-xl">
+                  <h3 className="text-md font-medium mb-3 text-white">Your Tasks</h3>
                   <div className="space-y-2">
                     {tasks
                       .filter(task => task.status === 'pending')
                       .map(task => (
                         <div 
                           key={task.id}
-                          className="p-4 bg-white rounded-md border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:scale-102"
+                          className="p-4 bg-white/20 backdrop-blur-sm rounded-md border border-white/30 hover:bg-white/30 transition-all duration-300 cursor-pointer transform hover:scale-102"
                           onClick={() => setActiveTask(task)}
                         >
-                          <div className="font-medium">{task.name}</div>
-                          <div className="text-sm text-gray-500 flex items-center mt-1">
+                          <div className="font-medium text-white">{task.name}</div>
+                          <div className="text-sm text-blue-100 flex items-center mt-1">
                             <Clock className="h-3 w-3 mr-1" />
                             {Math.floor(task.totalDuration / 3600)}h {Math.floor((task.totalDuration % 3600) / 60)}m
                           </div>
